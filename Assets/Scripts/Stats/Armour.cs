@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Armour : Stat
 {
-    public static float effectiveness = 2f;
+    public const float DEFAULT_EFFECTIVENESS = 1f;
+    private float effectiveness = 1f;
     public Armour(Stats stats) : base(stats)
     {
     }
 
     public int ReduceDamage(float damage)
     {
-        return Mathf.CeilToInt(damage * (totalValue / (totalValue + damage * effectiveness)));
+        return Mathf.RoundToInt(damage * damage / (damage + totalValue * effectiveness));
     }
+
+    public void SetEffectiveness(float effectiveness = DEFAULT_EFFECTIVENESS) => this.effectiveness = effectiveness;
 }
